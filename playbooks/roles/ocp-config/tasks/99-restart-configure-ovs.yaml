@@ -1,0 +1,30 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 99-restart-configure-ovs
+spec:
+  config:
+    ignition:
+      version: 3.4.0
+    storage:
+      files:
+        - contents:
+            compression: gzip
+            source: data:text/plain;charset=utf-8;base64,IyEvYmluL2Jhc2gKICAgIAojVGhlIGludGVyZmFjZSBuYW1lIGlzIHBhc3NlZCBhcyB0aGUgZmly
+c3QgYXJndW1lbnQgKCQxKQojVGhlIGFjdGlvbiBpcyBwYXNzZWQgYXMgdGhlIHNlY29uZCBhcmd1
+bWVudCAoJDIpCgogICAgI0RlZmluZSB0aGUgaW50ZXJmYWNlIGFuZCBzZXJ2aWNlIHdlIGNhcmUg
+YWJvdXQKICAgIFRBUkdFVF9JTlRFUkZBQ0U9ImJyLWV4IgogICAgU0VSVklDRV9UT19SRVNUQVJU
+PSJjb25maWd1cmUtb3ZzLnNlcnZpY2UiCgogICAgI0NoZWNrIGlmIHRoZSBldmVudCBpcyBmb3Ig
+b3VyIHRhcmdldCBpbnRlcmZhY2UgYW5kIHRoZSBhY3Rpb24gaXMgJ3VwJyBvciAnZGhjcDQtY2hh
+bmdlJwogICAgaWYgW1sgIiQxIiA9PSAiJHtUQVJHRVRfSU5URVJGQUNFfSIgJiYgKCAiJDIiID09
+ICJ1cCIgfHwgIiQyIiA9PSAiZGhjcDQtY2hhbmdlIiApIF1dOyB0aGVuCiAgICAgICAgIyBMb2cg
+dGhlIGFjdGlvbiBmb3IgZGVidWdnaW5nIHB1cnBvc2VzCiAgICAgICAgbG9nZ2VyICJOZXR3b3Jr
+TWFuYWdlciBEaXNwYXRjaGVyOiBJUCBhc3NpZ25lZCB0byAke1RBUkdFVF9JTlRFUkZBQ0V9LCBy
+ZXN0YXJ0aW5nICR7U0VSVklDRV9UT19SRVNUQVJUfS4iCgogICAgIyBSZXN0YXJ0IHRoZSBkZXNp
+cmVkIHNlcnZpY2UKICAgIHN5c3RlbWN0bCByZXN0YXJ0ICR7U0VSVklDRV9UT19SRVNUQVJUfQpm
+aQo=
+          mode: 0755
+          overwrite: true
+          path: /etc/NetworkManager/dispatcher.d/99-restart-configure-ovs.sh
