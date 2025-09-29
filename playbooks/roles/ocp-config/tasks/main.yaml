@@ -148,9 +148,9 @@
     shell: "restorecon -vR /var/www/html || true"
 
    - name: Copy 99-restart-configure-ovs.yaml into manifests folder
-    copy:
-      src: "{{ workdir }}/99-restart-configure-ovs.yaml"
-      dest: "{{ workdir }}/manifests/99-restart-configure-ovs.yaml"
-      remote_src: yes
-      mode: '0755'
-      force: yes    
+     copy:
+       src: "{{ workdir }}/99-restart-configure-ovs.yaml"
+       dest: "{{ workdir }}/manifests/99-restart-configure-ovs.yaml"
+       remote_src: yes
+       mode: '0755'
+       force: yes
