@@ -149,7 +149,7 @@
 
   - name: Copy 99-restart-configure-ovs.yaml into manifests folder
     copy:
-      src: "99-restart-configure-ovs.yaml"
+      src: 99-restart-configure-ovs.yaml
       dest: "{{ workdir }}/manifests/99-restart-configure-ovs.yaml"
       remote_src: yes
       mode: '0755'
