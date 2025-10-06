@@ -119,6 +119,29 @@
       - master
     when: kdump.enabled
 
+  - name: Generate ovs machine configuration
+    vars:
+      ovs_script_file: "../files/restart-ovs-service.sh"
+      ovs_env_var: "OVS_ENV_VAR"
+      ovs_script_enc: ""
+      role_n: "{{ item }}"
+    template:
+      src: ../templates/99-ovs-node-machineconfig.yaml.j2
+      dest: "{{ workdir }}/manifests/99-ovs-{{ item }}-node-machineconfig.yaml"
+    with_items:
+      - worker
+      - master
+
+  - name: Encrypt the restart-ovs-service.sh and store in env variable
+    shell: "export {{ ovs_env_var }}=$(base64 -w0 {{ ovs_script_file }}) && echo ${{ ovs_env_var }}"
+    register: ovs_env_var
+  
+  - name: Set OVS Script in Encrypted format
+    set_fact:
+      ovs_script_enc: "{{ ovs_env_var.stdout }}"
+    debug:
+      msg: "ovs_script_enc is : {{ ovs_script_enc }} " 
+
   - name: Create ignition files
     shell: "OPENSHIFT_INSTALL_RELEASE_IMAGE_OVERRIDE={{ release_image_override }} openshift-install create ignition-configs --log-level {{ log_level }}"
     args:

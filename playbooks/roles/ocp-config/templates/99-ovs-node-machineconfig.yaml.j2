@@ -1,0 +1,22 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: '{{ role_n }}'
+  name: 99-{{ role_n }}-configure-ovs
+spec:
+  config:
+    ignition:
+      version: 3.4.0
+    storage:
+      files:
+        - contents:
+            compression: gzip
+            source: data:text/plain;charset=utf-8;base64,{{ ovs_script_enc|b64encode }}
+          mode: 420
+          overwrite: true
+          path: /etc/NetworkManager/dispatcher.d/99-restart-ovs-config-service.sh
+    systemd:
+      units:
+        - enabled: true
+          name: ovs-configuration.service
