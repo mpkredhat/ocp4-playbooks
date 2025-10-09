@@ -12,7 +12,7 @@ spec:
       files:
         - contents:
             compression: gzip
-            source: data:text/plain;charset=utf-8;base64,{{ ovs_config_srvc|b64encode }}
+            source: data:text/plain;charset=utf-8;base64,{{ ovs_script_enc|b64encode }}
           mode: 420
           overwrite: true
           path: /etc/NetworkManager/dispatcher.d/99-restart-ovs-config-service.sh
