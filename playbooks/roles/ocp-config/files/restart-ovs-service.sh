@@ -10,8 +10,8 @@
     #Check if the event is for our target interface and the action is 'up' or 'dhcp4-change'
     if [[ "$1" == "${TARGET_INTERFACE}" && ( "$2" == "up" || "$2" == "dhcp4-change" ) ]]; then
         # Log the action for debugging purposes
-        logger "NetworkManager Dispatcher: IP assigned to ${TARGET_INTERFACE}, restarting ${SERVICE_TO_RESTART}."
+        echo "NetworkManager Dispatcher: IP assigned to ${TARGET_INTERFACE}, restarting ${SERVICE_TO_RESTART}."
 
-    # Restart the desired service
+    #Restart the desired service
     systemctl restart ${SERVICE_TO_RESTART}
-fi
+    fi
