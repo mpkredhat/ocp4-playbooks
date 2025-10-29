@@ -120,6 +120,8 @@
     when: kdump.enabled
 
   - name: Encrypt the restart-ovs-service.sh and store in env variable
+    vars:
+      ovs_script_file: "../files/restart-ovs-service.sh"  
     shell: "export {{ ovs_env_var }}=$(base64 -w0 {{ ovs_script_file }}) && echo ${{ ovs_env_var }}"
     register: ovs_env_var
   
