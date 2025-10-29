@@ -128,8 +128,6 @@
   - name: Set OVS Script in Encrypted format
     set_fact:
       ovs_script_enc: "{{ ovs_env_var.stdout }}"
-    debug:
-      msg: "ovs_script_enc is : {{ ovs_script_enc }} " 
 
   - name: Generate ovs machine configuration
     vars:
