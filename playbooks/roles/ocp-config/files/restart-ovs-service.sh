@@ -14,4 +14,4 @@
 
     #Restart the desired service
     systemctl restart ${SERVICE_TO_RESTART}
-fi
+    fi
