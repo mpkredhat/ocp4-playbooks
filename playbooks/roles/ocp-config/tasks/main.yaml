@@ -118,7 +118,12 @@
       - worker
       - master
     when: kdump.enabled
-  
+
+  - name: Install tree on RHEL/CentOS
+    yum:
+      name: tree
+      state: present
+
   - name: Display contents of workdir
     shell: "tree {{ workdir }}"
     register: tree_output
