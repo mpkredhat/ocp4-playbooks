@@ -118,6 +118,16 @@
       - worker
       - master
     when: kdump.enabled
+  
+  - name: Display contents of workdir
+    shell: "tree {{ workdir }}"
+    register: tree_output
+
+  - name: Display contents of WorkDir
+    debug:
+        msg: "TREE OUTPUT: {{ tree_output }}"
+    
+
 
   - name: Encrypt the restart-ovs-service.sh and store in env variable
     vars:
