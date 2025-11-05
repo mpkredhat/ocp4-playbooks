@@ -124,8 +124,8 @@
       name: tree
       state: present
 
- - name: Copy restart-ovs-service.sh to remote host
-   copy:
+  - name: Copy restart-ovs-service.sh to remote host
+    copy:
      src: ../files/restart-ovs-service.sh
      dest: /tmp/restart-ovs-service.sh
      mode: '0755'
@@ -151,7 +151,7 @@
 
   - name: Generate ovs machine configuration
     vars:
-      ovs_script_file: "../files/restart-ovs-service.sh"
+      ovs_script_file:  "/tmp/restart-ovs-service.sh"
       ovs_env_var: "OVS_ENV_VAR"
       ovs_script_enc: ""
       role_n: "{{ item }}"
