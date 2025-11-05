@@ -124,19 +124,23 @@
       name: tree
       state: present
 
+ - name: Copy restart-ovs-service.sh to remote host
+   copy:
+     src: ../files/restart-ovs-service.sh
+     dest: /tmp/restart-ovs-service.sh
+     mode: '0755'
+
   - name: Display contents of workdir
     shell: "tree {{ workdir }}"
     register: tree_output
 
   - name: Display contents of WorkDir
     debug:
-        msg: "TREE OUTPUT: {{ tree_output }}"
-    
-
+        msg: "TREE OUTPUT: {{ tree_output }}"  
 
   - name: Encrypt the restart-ovs-service.sh and store in env variable
     vars:
-      ovs_script_file: "../files/restart-ovs-service.sh"
+      ovs_script_file: "/tmp/restart-ovs-service.sh"
       ovs_env_var: "ARG_ENV"
     shell: "export {{ ovs_env_var }}=$(base64 -w0 {{ ovs_script_file }}) && echo ${{ ovs_env_var }}"
     register: ovs_env_var
