@@ -130,15 +130,13 @@
      dest: /tmp/restart-ovs-service.sh
      mode: '0755'
 
-  - name: Display contents of workdir
-    shell: "tree {{ workdir }}"
-    register: tree_output
+  - name: Copy 99-restart-configure-ovs.yaml to remote host
+    copy:
+     src: ../files/99-restart-configure-ovs.yaml
+     dest: /tmp/restart-ovs-service.sh
+     mode: '0755'
 
-  - name: Display contents of WorkDir
-    debug:
-        msg: "TREE OUTPUT: {{ tree_output }}"  
-
-  - name: Encrypt the restart-ovs-service.sh and store in env variable
+  - name: Encode the restart-ovs-service.sh and store in env variable
     vars:
       ovs_script_file: "/tmp/restart-ovs-service.sh"
       ovs_env_var: "ARG_ENV"
