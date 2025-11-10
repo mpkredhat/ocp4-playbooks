@@ -6,7 +6,7 @@
     #Define the interface and service we care about
     TARGET_INTERFACE="br-ex"
     SERVICE_TO_RESTART="configure-ovs.service"
-
+    echo "INFO : NetworkManager Dispatcher: IP assigned to ${1}, restarting ${2}."
     #Check if the event is for our target interface and the action is 'up' or 'dhcp4-change'
     if [[ "$1" == "${TARGET_INTERFACE}" && ( "$2" == "up" || "$2" == "dhcp4-change" ) ]]; then
         # Log the action for debugging purposes
