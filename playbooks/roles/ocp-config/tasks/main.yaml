@@ -187,9 +187,3 @@
 
   - name: Best effort SELinux repair - Apache
     shell: "restorecon -vR /var/www/html || true"
-
-  - name: Copy 99-restart-configure-ovs.yaml into manifests folder
-    copy:
-      src: ../files/99-restart-configure-ovs.yaml
-      dest: "{{ workdir }}/manifests/99-restart-configure-ovs.yaml"
-      mode: '0755'
