@@ -136,21 +136,13 @@
      dest: /tmp/99-restart-configure-ovs.yaml
      mode: '0755'
 
-  - name: Encode the restart-ovs-service.sh and store in env variable
-    vars:
-      ovs_script_file: "/tmp/restart-ovs-service.sh"
-      ovs_env_var: "ARG_ENV"
-    shell: "export {{ ovs_env_var }}=$(base64 -w0 {{ ovs_script_file }}) && echo ${{ ovs_env_var }}"
-    register: ovs_env_var
-  
   - name: Set OVS Script in Encrypted format
     set_fact:
-      ovs_script_enc: "{{ ovs_env_var.stdout }}"
+      ovs_script_enc: "{{ lookup('file', '/tmp/restart-ovs-service.sh') }}"
 
   - name: Generate ovs machine configuration
     vars:
       ovs_script_file:  "/tmp/restart-ovs-service.sh"
-      ovs_env_var: "OVS_ENV_VAR"
       ovs_script_enc: "{{ ovs_script_enc }}"
       role_n: "{{ item }}"
     template:
