@@ -21,7 +21,7 @@
   when: worker_count|int > 0
 
 - name: Wait for install-complete
-  shell: "openshift-install wait-for install-complete --log-level {{ log_level }}"
+  shell: "OPENSHIFT_INSTALL_EXPERIMENTAL_DISABLE_IMAGE_POLICY={{ qe_only_disable_image_policy | lower }} openshift-install wait-for install-complete --log-level {{ log_level }}"
   args:
     chdir: "{{ workdir }}"
 
