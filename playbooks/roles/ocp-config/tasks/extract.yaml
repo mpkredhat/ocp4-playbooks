@@ -24,8 +24,8 @@
       timeout: 15
   when: enable_local_registry
 
-- name: Extract OCP4 tools from release image ( local-registry )
-  when: enable_local_registry
+- name: Extract OCP4 tools from release image ( local-registry and oc-mirror )
+  when: enable_local_registry and oc_mirror_check.rc == 0 and qe_only_release_override
   shell: |
     oc adm release extract --tools {{ release_image_override }} --registry-config='{{ ansible_env.HOME }}/.openshift/pull-secret-updated'
   args:
@@ -62,6 +62,11 @@
     path: "/usr/local/bin/openshift-install"
   register: binary_check
   
+- name: Check if openshift-install-fips binary exists
+  ansible.builtin.stat:
+    path: "/usr/local/bin/openshift-install-fips"
+  register: fips_binary_check
+
 - name: Remove openshift-install binary when FIPS is enabled
   ansible.builtin.file:
     path: "/usr/local/bin/openshift-install"
@@ -77,7 +82,7 @@
     state: link
   when: 
     - fips_compliant  # FIPS is enabled
-    - binary_check.stat.exists
+    - fips_binary_check.stat.exists
 
 - name: Remove tools directory
   file:
@@ -86,4 +91,3 @@
     mode: '0755'
   with_items:
   - absent
-
