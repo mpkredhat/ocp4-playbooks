@@ -99,6 +99,36 @@
       - "/machineconfig/*-chrony-configuration.yaml"
     when: chronyconfig.enabled
 
+  - name: Check if oc-mirror is already installed
+    command: which oc-mirror
+    register: oc_mirror_check
+    failed_when: false
+    changed_when: false
+
+  - name: Copy IDMS file for oc-mirror
+    copy:
+      src: /etc/image-digest-mirror-set.yaml
+      dest: "{{ workdir }}/manifests/image-digest-mirror-set.yaml"
+    when: enable_local_registry and oc_mirror_check.rc == 0
+
+  - name: Copy ITMS file for oc-mirror
+    copy:
+      src: /etc/image-tag-mirror-set.yaml
+      dest: "{{ workdir }}/manifests/image-tag-mirror-set.yaml"
+    when: enable_local_registry and oc_mirror_check.rc == 0
+
+  - name: Copy signature-configmap.yaml file for oc-mirror
+    copy:
+      src: /etc/signature-configmap.yaml
+      dest: "{{ workdir }}/manifests/signature-configmap.yaml"
+    when: enable_local_registry and oc_mirror_check.rc == 0
+
+  - name: Copy updateService.yaml file for oc-mirror
+    copy:
+      src: /etc/updateService.yaml
+      dest: "{{ workdir }}/manifests/updateService.yaml"
+    when: enable_local_registry and oc_mirror_check.rc == 0
+
   - name: Generate kdump machine configuration
     vars:
       kdump_sysconfig: |
